@@ -14,18 +14,26 @@ class GoogleAuth extends Component {
             });
         });
     }
-    // this is set up as an arrow function so the callback is bound to the component. 
+    // this is set up as an arrow function so the context is bound to the component. 
     onAuthChange = () => { 
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
     };
 
+    onSignIn = () => {
+        this.auth.signIn();
+    };
+
+    onSignOut = () => {
+        this.auth.signOut()
+    };
+
     renderAuthButton() {
         if (this.state.isSignedIn === null){
-            return <div>Sign up? or Log in?</div>
+            return null;
         }else if (this.state.isSignedIn){
-            return <div>Sign out?</div>
+            return <button className="ui red google button" onClick={this.onSignOut}><i className="google icon"/>Sign Out</button>
         } else {
-            return <div>Sign in?</div>
+            return <button className="ui red google button" onClick={this.onSignIn}><i className="google icon"/>Sign In With Google</button>
         }
     }
 
